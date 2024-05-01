@@ -1,7 +1,7 @@
 // https://github.com/VERTEXSoftware/SAMP
 // Copyright (C) 2024 VERTEX Software by Sleptsov Vladimir
 // SPDX-License-Identifier: MIT
-// Version: 1.1.0-Release
+// Version: 1.2.0-Release
 
 
 #pragma once
@@ -18,6 +18,11 @@ public:
     {
         Small = 0,
         Big = 1
+    };
+
+    enum Disp {
+        Default=0,
+        Fix=1,
     };
 
 private:
@@ -128,7 +133,7 @@ public:
     }
 
     //Дисперсия
-    double Dispersion() {
+    double Dispersion(Disp dism = Disp::Default) {
         double accum = 0;
         double sa = this->SampAverage();
 
@@ -146,28 +151,10 @@ public:
             }
            
         }
-        return accum / arr.size();
+        return accum / (arr.size() - (dism == Disp::Fix ? 1 : 0));
     }
 
-    //Исправленная дисперсия
-    double FixDispersion() {
-        double accum = 0;
-        double sa = this->SampAverage();
 
-        if (_md == MODE::Small) {
-            for (size_t i = 0; i < arr.size(); ++i) {
-                double tmp = (arr[i] - sa);
-                accum += (tmp * tmp);
-            }
-        }
-        else  if (_md == MODE::Big) {
-            for (const auto& [num, count] : freq) {
-                double tmp = (num - sa);
-                accum += (tmp * tmp) * count;
-            }
-        }
-        return accum / (arr.size() - 1);
-    }
 
     double Order3CentralMoment() {
         double accum = 0;
@@ -187,13 +174,10 @@ public:
         return accum / arr.size();
     }
 
-    double AverageSQRTDev() {
-        return sqrt(this->Dispersion());
+    double AverageSQRTDev(Disp dism = Disp::Default) {
+        return sqrt(this->Dispersion(dism));
     }
 
-    double FixAverageSQRTDev() {
-        return sqrt(this->FixDispersion());
-    }
 
     double Order4CentralMoment() {
         double accum = 0;
@@ -214,13 +198,13 @@ public:
         return accum / arr.size();
     }
 
-    double AsymmetryFactor() {
-        double fd = FixDispersion();
+    double AsymmetryFactor(Disp dism= Disp::Default) {
+        double fd = this->Dispersion(dism);
         return this->Order3CentralMoment() / (fd * fd * fd);
     }
 
-    double ExcessFactor() {
-        double fd = FixDispersion();
+    double ExcessFactor(Disp dism = Disp::Default) {
+        double fd = this->Dispersion(dism);
         return (this->Order4CentralMoment() / (fd * fd * fd * fd))-3;
     }
 

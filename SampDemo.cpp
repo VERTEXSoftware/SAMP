@@ -52,11 +52,11 @@ int main()
     std::cout << std::endl;
     std::cout << "Выборочное среднее (X): " << smpl.SampAverage() << std::endl;
     std::cout << "Дисперсия: " << smpl.Dispersion() << std::endl;
-    std::cout << "Испрасленная дисперсия: " << smpl.FixDispersion() << std::endl;
+    std::cout << "Испрасленная дисперсия: " << smpl.Dispersion(samp::Fix) << std::endl;
     std::cout << "Среднее квадратическое откланение: " << smpl.AverageSQRTDev() << std::endl;
-    std::cout << "Исправленное среднее квадратическое откланение: " << smpl.FixAverageSQRTDev() << std::endl;
+    std::cout << "Исправленное среднее квадратическое откланение: " << smpl.AverageSQRTDev(samp::Fix) << std::endl;
     std::cout << "Коэффициент ассиметрии: " << smpl.AsymmetryFactor() << std::endl;
-    std::cout << "Эксцесса: " << smpl.ExcessFactor() << std::endl;
+    std::cout << "Эксцесса: " << smpl.ExcessFactor(samp::Fix) << std::endl;
     std::cout << "Центральный момент 3 порядка: " << smpl.Order3CentralMoment() << std::endl;
     std::cout << "Центральный момент 4 порядка: " << smpl.Order4CentralMoment() << std::endl;
     std::cout << "Математическое ожидание: " << smpl.MathExpect() << std::endl;
