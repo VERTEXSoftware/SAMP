@@ -2,7 +2,7 @@
 ![Пример изображения](Samp.png)
 
 # SAMP
-**SAMP**
+**SAMP** simple library for performing mathematical operations on a samples.
 
 ## Installation
 
