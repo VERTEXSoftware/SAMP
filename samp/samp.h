@@ -53,6 +53,10 @@ public:
         freq.clear();
 	}
 
+    MODE GetMode() {
+        return _md;
+    }
+
     size_t Count() {
         return arr.size();
     }
@@ -113,15 +117,14 @@ public:
             for (size_t i = 0; i < arr.size(); ++i) {
                 accum += arr[i];
             }
-            return accum / arr.size();
         }
         else  if (_md == MODE::Big) {
             for (const auto& [num, count] : freq) {
                 accum += num * count;
             }
-            return accum / freq.size();
+           
         }
-        return 0;
+        return accum / arr.size();
     }
 
     //Дисперсия
@@ -134,16 +137,16 @@ public:
                 double tmp = (arr[i] - sa);
                 accum += (tmp * tmp);
             }
-            return accum / arr.size();
+         
         }
         else  if (_md == MODE::Big) {
             for (const auto& [num, count] : freq) {
                 double tmp = (num - sa);
                 accum += (tmp * tmp)* count;
             }
-            return accum / freq.size();
+           
         }
-        return 0;
+        return accum / arr.size();
     }
 
     //Исправленная дисперсия
@@ -156,16 +159,14 @@ public:
                 double tmp = (arr[i] - sa);
                 accum += (tmp * tmp);
             }
-            return accum / (arr.size()-1);
         }
         else  if (_md == MODE::Big) {
             for (const auto& [num, count] : freq) {
                 double tmp = (num - sa);
                 accum += (tmp * tmp) * count;
             }
-            return accum / (freq.size()-1);
         }
-        return 0;
+        return accum / (arr.size() - 1);
     }
 
     double Order3CentralMoment() {
@@ -176,17 +177,14 @@ public:
                 double tmp = (arr[i] - sa);
                 accum += (tmp * tmp * tmp);
             }
-            return accum / arr.size();
         }
         else  if (_md == MODE::Big) {
             for (const auto& [num, count] : freq) {
                 double tmp = (num - sa);
                 accum += (tmp * tmp * tmp) * count;
             }
-            return accum / freq.size();
         }
-
-        return 0;
+        return accum / arr.size();
     }
 
     double AverageSQRTDev() {
@@ -205,17 +203,15 @@ public:
                 double tmp = (arr[i] - sa);
                 accum += (tmp * tmp * tmp * tmp);
             }
-            return accum / arr.size();
         }
         else  if (_md == MODE::Big) {
             for (const auto& [num, count] : freq) {
                 double tmp = (num - sa);
                 accum += (tmp * tmp * tmp * tmp) * count;
             }
-            return accum / freq.size();
         }
 
-        return 0;
+        return accum / arr.size();
     }
 
     double AsymmetryFactor() {
@@ -225,7 +221,7 @@ public:
 
     double ExcessFactor() {
         double fd = FixDispersion();
-        return this->Order4CentralMoment() / (fd * fd * fd * fd)-3;
+        return (this->Order4CentralMoment() / (fd * fd * fd * fd))-3;
     }
 
     //?

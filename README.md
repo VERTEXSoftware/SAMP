@@ -6,7 +6,7 @@
 
 ## Installation
 
-**OVER Pointer** is distributed as a header file. You just add a single line, `#include <SAMP/SAMP.h>` wherever you want to use it and no additional source files, no compilation settings, and no IDE-specific Makefile or project files. **OVER Pointer** is easy to integrate.
+**SAMP** is distributed as a header file. You just add a single line, `#include <SAMP/SAMP.h>` wherever you want to use it and no additional source files, no compilation settings, and no IDE-specific Makefile or project files. **SAMP** is easy to integrate.
 
 ## Usage
 

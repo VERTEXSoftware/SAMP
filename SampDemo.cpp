@@ -10,10 +10,36 @@ int main()
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
 
-    samp smpl(samp::MODE::Small);
+    std::cout << "SAMP" << std::endl;
+    std::cout << "https://github.com/VERTEXSoftware/SAMP" << std::endl;
+    std::cout << "Copyright (C) 2024 VERTEX Software by Sleptsov Vladimir" << std::endl;
+    std::cout << "SPDX-License-Identifier: MIT" << std::endl;
+    std::cout << "Version: 1.1.0-Release" << std::endl << std::endl;
+
+    int mode = 0;
+
+    while (mode!=1 && mode != 2) {
+        std::cout << "1) Малая выборка" << std::endl;
+        std::cout << "2) Большая выборка" << std::endl;
+        std::cout << "Режим выборки: ";
+        std::cin >> mode;
+    }
+
+    samp::MODE md = samp::MODE::Big;
+
+    if (mode==1) {
+        md = samp::MODE::Small;
+    }else  if (mode == 2) {
+        md = samp::MODE::Big;
+    }
+
+    samp smpl(md);
+
 
     size_t n = 0;
+    std::cout << "Количество элементов (n=): ";
     std::cin >> n;
+    std::cout << "Введите элементы:" << std::endl;
 
     for (size_t i = 0; i < n; ++i) {
         std::cin >> smpl;
