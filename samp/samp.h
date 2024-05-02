@@ -199,19 +199,20 @@ public:
     }
 
     double AsymmetryFactor(Disp dism= Disp::Default) {
-        double fd = this->Dispersion(dism);
+        double fd = this->AverageSQRTDev(dism);
         return this->Order3CentralMoment() / (fd * fd * fd);
     }
 
     double ExcessFactor(Disp dism = Disp::Default) {
-        double fd = this->Dispersion(dism);
-        return (this->Order4CentralMoment() / (fd * fd * fd * fd))-3;
+        double fd = this->AverageSQRTDev(dism);
+        return (this->Order4CentralMoment() / (fd * fd * fd * fd))-3.0;
     }
 
     //?
     double MathExpect() {
         double accum = 0;
         for (const auto& [num, count] : freq) {
+            //std::cout << num * count << std::endl;
             accum += num * count;
         }
         return accum/ arr.size();
